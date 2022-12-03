@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleApp.Models.Day3;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -29,6 +30,31 @@ namespace ConsoleApp.Puzzles
                 FindDuplicatesInOtherCompartment(firstCompartment, rucksack, numItems / 2, numItems - 1, duplicateItems);
 
                 prioritiesSum = CalculatePrioritiesSum(duplicateItems);
+            }
+
+            return prioritiesSum;
+        }
+
+        public static int Part2()
+        {
+            string[] data = File.ReadAllLines(DataFile);
+
+            int groupSize = 3;
+
+            int prioritiesSum = 0;
+
+            for (int i = 0; i < data.Length; i += groupSize)
+            {
+                string[] rucksacks = new string[groupSize];
+
+                for (int rucksack = 0; rucksack < groupSize; rucksack++)
+                {
+                    rucksacks[rucksack] = data[i + rucksack];
+                }
+
+                var elfGroup = new ElfGroup(rucksacks, groupSize);
+                
+                prioritiesSum += elfGroup.PriorityNumber;
             }
 
             return prioritiesSum;
