@@ -11,6 +11,8 @@ namespace ConsoleApp
 
             Console.WriteLine($"The answer to Day 2 Part 1 is: {Day02RockPaperScissors.Part1()}.");
             Console.WriteLine($"The answer to Day 2 Part 2 is: {Day02RockPaperScissors.Part2()}.");
+
+            Console.WriteLine($"The answer to Day 3 Part 1 is: {Day03RucksackReorganization.Part1()}.");
         }
     }
 }
