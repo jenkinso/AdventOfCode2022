@@ -41,7 +41,10 @@ namespace ConsoleApp.Puzzles
                 int p2L = int.Parse(pair2[0]);
                 int p2U = int.Parse(pair2[1]);
 
-                if ((p1L >= p2L && p1U <= p2U) || (p2L >= p1L && p2U <= p1U))
+                bool isRange1WithinRange2 = p1L >= p2L && p1U <= p2U;
+                bool isRange2WithinRange1 = p2L >= p1L && p2U <= p1U;
+
+                if (isRange1WithinRange2 || isRange2WithinRange1)
                 {
                     answers.containCount++;
                 }
