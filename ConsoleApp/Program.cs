@@ -17,6 +17,9 @@ namespace ConsoleApp
 
             Console.WriteLine($"The answer to Day 4 Part 1 is: {Day04CampCleanup.Part1()}.");
             Console.WriteLine($"The answer to Day 4 Part 2 is: {Day04CampCleanup.Part2()}.");
+
+            Console.WriteLine($"The answer to Day 5 Part 1 is: {Day05SupplyStacks.Part1()}.");
+            Console.WriteLine($"The answer to Day 5 Part 2 is: {Day05SupplyStacks.Part2()}.");
         }
     }
 }
