@@ -6,6 +6,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
+            /*
             Console.WriteLine($"The answer to Day 1 Part 1 is: {Day01CalorieCounting.Part1()}.");
             Console.WriteLine($"The answer to Day 1 Part 2 is: {Day01CalorieCounting.Part2()}.");
 
@@ -20,6 +21,10 @@ namespace ConsoleApp
 
             Console.WriteLine($"The answer to Day 5 Part 1 is: {Day05SupplyStacks.Part1()}.");
             Console.WriteLine($"The answer to Day 5 Part 2 is: {Day05SupplyStacks.Part2()}.");
+            */
+
+            Console.WriteLine($"The answer to Day 6 Part 1 is: {Day06TuningTrouble.Part1()}.");
+            Console.WriteLine($"The answer to Day 6 Part 2 is: {Day06TuningTrouble.Part2()}.");
         }
     }
 }
