@@ -113,5 +113,15 @@ namespace ConsoleApp.Puzzles
 
             return numCharactersProcessed;
         }
+
+        public static int SolveWithLinqExtensionMethods()
+        {
+            string[] data = File.ReadAllLines(DataFile);
+            string message = data[0];
+
+            int markerLength = 14;
+
+            return Enumerable.Range(markerLength, message.Length).First(i => message.Substring(i - markerLength, markerLength).ToHashSet().Count == markerLength);
+        }
     }
 }
