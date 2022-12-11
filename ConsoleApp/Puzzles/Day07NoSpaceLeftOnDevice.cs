@@ -32,6 +32,30 @@ namespace ConsoleApp.Puzzles
             return sumOfSizes;
         }
 
+        public static int Part2()
+        {
+            string[] data = System.IO.File.ReadAllLines(DataFile);
+
+            var graphBuilder = new DirectoryGraphBuilder(data);
+
+            Directory rootNode = graphBuilder.Build();
+
+            List<Directory> allDirectories = FindDirectoriesWithMaxSize(int.MaxValue, rootNode);
+
+            int usedSpace = rootNode.Size;
+            int requiredSpace = 30000000;
+            int diskCapacity = 70000000;
+            int unusedSpace = diskCapacity - usedSpace;
+
+            int minSizeToDelete = requiredSpace - unusedSpace;
+
+            allDirectories.Sort();
+
+            var directoryToDelete = allDirectories.First(dir => dir.Size >= minSizeToDelete);
+
+            return directoryToDelete.Size;
+        }
+
         private static List<Directory> FindDirectoriesWithMaxSize(int maxSize, Directory rootNode)
         {
             List<Directory> result = new List<Directory>();
@@ -43,7 +67,6 @@ namespace ConsoleApp.Puzzles
             // Initial step for a Breadth First Search of the graph of directories: add the starting node
             visited.Add(rootNode);
             queue.Enqueue(rootNode);
-
 
             // Carry out BFS
             while (queue.Count > 0)

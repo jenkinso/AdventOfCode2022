@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp.Models.Day7
 {
-    public class Directory
+    public class Directory : IComparable<Directory>
     {
         public Directory Parent { get; private set; }
         public string Name { get; private set; }
@@ -36,6 +36,13 @@ namespace ConsoleApp.Models.Day7
         {
             Parent = parent;
             Name = name;
+        }
+
+        public int CompareTo(Directory? other)
+        {
+            if (other == null) return 1;
+
+            return Size.CompareTo(other.Size);
         }
     }
 }

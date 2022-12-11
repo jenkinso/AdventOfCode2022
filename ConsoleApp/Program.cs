@@ -27,6 +27,7 @@ namespace ConsoleApp
             */
             
             Console.WriteLine($"The answer to Day 7 Part 1 is: {Day07NoSpaceLeftOnDevice.Part1()}.");
+            Console.WriteLine($"The answer to Day 7 Part 2 is: {Day07NoSpaceLeftOnDevice.Part2()}.");
 
         }
     }
