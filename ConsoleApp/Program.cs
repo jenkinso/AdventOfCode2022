@@ -24,11 +24,13 @@ namespace ConsoleApp
             
             Console.WriteLine($"The answer to Day 6 Part 1 is: {Day06TuningTrouble.Part1()}.");
             Console.WriteLine($"The answer to Day 6 Part 2 is: {Day06TuningTrouble.Part2()}.");
-            */
-            
+
             Console.WriteLine($"The answer to Day 7 Part 1 is: {Day07NoSpaceLeftOnDevice.Part1()}.");
             Console.WriteLine($"The answer to Day 7 Part 2 is: {Day07NoSpaceLeftOnDevice.Part2()}.");
+            */
 
+            Console.WriteLine($"The answer to Day 8 Part 1 is: {Day08TreetopTreeHouse.Part1()}.");
+            Console.WriteLine($"The answer to Day 8 Part 2 is: {Day08TreetopTreeHouse.Part2()}.");
         }
     }
 }
