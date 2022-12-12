@@ -8,8 +8,15 @@ namespace ConsoleApp.Models.Day9
 {
     public class RopeKnot
     {
+        public string Name { get; private set; }
         public int x { get; private set; }
         public int y { get; private set; }
+
+        public RopeKnot(string name)
+        {
+            Name = name;
+        }
+
         public void UpdateX(int dx)
         {
             x += dx;

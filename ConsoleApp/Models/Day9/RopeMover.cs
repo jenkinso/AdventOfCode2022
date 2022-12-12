@@ -8,8 +8,8 @@ namespace ConsoleApp.Models.Day9
 {
     public class RopeMover
     {
-        public RopeKnot Head { get; private set; } = new();
-        public RopeKnot Tail { get; private set; } = new();
+        public RopeKnot Head { get; private set; } = new RopeKnot("Head");
+        public RopeKnot Tail { get; private set; } = new RopeKnot("Tail");
         public int TailPositionCount
         {
             get
