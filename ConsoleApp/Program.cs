@@ -33,6 +33,7 @@ namespace ConsoleApp
             */
 
             Console.WriteLine($"The answer to Day 9 Part 1 is: {Day09RopeBridge.Part1()}.");
+            Console.WriteLine($"The answer to Day 9 Part 2 is: {Day09RopeBridge.Part2()}.");
         }
     }
 }
