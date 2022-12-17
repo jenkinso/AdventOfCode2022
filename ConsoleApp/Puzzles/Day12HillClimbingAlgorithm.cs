@@ -15,103 +15,20 @@ namespace ConsoleApp.Puzzles
 
         public static int Part1()
         {
-            string[] data = File.ReadAllLines(DataFile);
+            string[] data = File.ReadAllLines(PracticeFile);
 
             Node[] graph = GenerateGraph(data);
 
-            int numSteps = Dijkstra(graph);
+            Dijkstra dijkstra = new(graph);
+
+            Node destination = graph.First(node => node.IsDestination);
+
+            dijkstra.RunDijkstra();
+            dijkstra.RunShortestPath(destination);
+
+            int numSteps = dijkstra.NumSteps;
 
             return numSteps;
-        }
-
-        private static int Dijkstra(Node[] graph)
-        {
-            int numNodes = graph.Length;
-
-            Dictionary<Node, int> distanceFromSource = new();
-            Dictionary<Node, Node?> previous = new();
-            List<Node> unvisitedQueue = new();
-
-            // Initialise values in distance and previous arrays and populate queue of unvisited nodes
-            foreach (var node1 in graph)
-            {
-                distanceFromSource[node1] = node1.IsSource ? 0 : int.MaxValue;
-                previous[node1] = null;
-                unvisitedQueue.Add(node1);
-            }
-
-            while (unvisitedQueue.Count > 0)
-            {
-                Node? currentNode = FindNodeWithMinDistance(unvisitedQueue, distanceFromSource);
-
-                if (currentNode == null)
-                {
-                    break;
-                }
-
-                bool success = unvisitedQueue.Remove(currentNode);
-
-                foreach (var neighbour in currentNode.Edges)
-                {
-                    int altDistance = distanceFromSource[currentNode] + 1;
-
-                    if (altDistance < distanceFromSource[neighbour])
-                    {
-                        distanceFromSource[neighbour] = altDistance;
-                        previous[neighbour] = currentNode;
-                    }
-
-                }
-            }
-
-            // Run shortest path algorithm
-            int numSteps = 0;
-
-            Node node = graph.First(node => node.IsDestination);
-
-            while (previous[node] != null)
-            {
-                node = previous[node];
-                numSteps++;
-            }
-
-            return numSteps;
-        }
-
-        private static Node? FindNodeWithMinDistance(List<Node> unvisitedNodes, Dictionary<Node, int> distanceFromSource)
-        {
-            Node? result = null;
-
-            int minDistance = int.MaxValue;
-
-            foreach (var node in unvisitedNodes)
-            {
-                if (distanceFromSource[node] < minDistance)
-                {
-                    minDistance = distanceFromSource[node];
-                    result = node;
-                }
-            }
-
-            return result;
-        }
-
-        private static Node[] GetOneDimensionalGraph(Node[,] graph)
-        {
-            Node[] oneDimGraph = new Node[graph.Length];
-
-            int index = 0;
-
-            for (int row = 0; row < graph.GetLength(0); row++)
-            {
-                for (int col = 0; col < graph.GetLength(1); col++)
-                {
-                    oneDimGraph[index] = graph[row, col];
-                    index++;
-                }
-            }
-
-            return oneDimGraph;
         }
 
         private static Node[] GenerateGraph(string[] data)
@@ -150,6 +67,24 @@ namespace ConsoleApp.Puzzles
                     if (col + 1 < numCols) graph[row, col].CheckForAddEdge(graph[row, col + 1]);
                 }
             }
+        }
+
+        private static Node[] GetOneDimensionalGraph(Node[,] graph)
+        {
+            Node[] oneDimGraph = new Node[graph.Length];
+
+            int index = 0;
+
+            for (int row = 0; row < graph.GetLength(0); row++)
+            {
+                for (int col = 0; col < graph.GetLength(1); col++)
+                {
+                    oneDimGraph[index] = graph[row, col];
+                    index++;
+                }
+            }
+
+            return oneDimGraph;
         }
     }
 }
