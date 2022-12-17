@@ -29,16 +29,16 @@ namespace ConsoleApp.Models.Day12
 
             if (ElevationLetter == 'S')
             {
-                elevationLetter = StartElevationLetter;
+                ElevationLetter = StartElevationLetter;
                 IsSource = true;
             }
             else if (ElevationLetter == 'E')
             {
-                elevationLetter = EndElevationLetter;
+                ElevationLetter = EndElevationLetter;
                 IsDestination = true;
             }
 
-            ElevationNum = (int)elevationLetter + AsciiOffset;
+            ElevationNum = (int)ElevationLetter + AsciiOffset;
         }
 
         public void CheckForAddEdge(Node otherNode)

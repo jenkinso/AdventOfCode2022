@@ -19,13 +19,15 @@ namespace ConsoleApp.Models.Day12
 
         private Node[] _graph;
         private int _numNodes;
+        private Node _source;
         private Dictionary<Node, int> _distanceFromSource = new();
         private Dictionary<Node, Node?> _previous = new();
 
-        public Dijkstra(Node[] graph)
+        public Dijkstra(Node[] graph, Node source)
         {
             _graph = graph;
             _numNodes = _graph.Length;
+            _source = source;
         }
 
         public void RunDijkstra()
@@ -35,7 +37,7 @@ namespace ConsoleApp.Models.Day12
             // Initialise values in distance and previous arrays and populate queue of unvisited nodes
             foreach (var node1 in _graph)
             {
-                _distanceFromSource[node1] = node1.IsSource ? 0 : int.MaxValue;
+                _distanceFromSource[node1] = node1 == _source ? 0 : int.MaxValue;
                 _previous[node1] = null;
                 unvisitedQueue.Add(node1);
             }
@@ -46,6 +48,7 @@ namespace ConsoleApp.Models.Day12
 
                 if (currentNode == null)
                 {
+                    // all remaining nodes cannot be reached
                     break;
                 }
 
@@ -60,7 +63,6 @@ namespace ConsoleApp.Models.Day12
                         _distanceFromSource[neighbour] = altDistance;
                         _previous[neighbour] = currentNode;
                     }
-
                 }
             }            
         }

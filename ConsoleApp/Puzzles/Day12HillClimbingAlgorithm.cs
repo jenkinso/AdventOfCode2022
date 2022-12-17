@@ -15,13 +15,14 @@ namespace ConsoleApp.Puzzles
 
         public static int Part1()
         {
-            string[] data = File.ReadAllLines(PracticeFile);
+            string[] data = File.ReadAllLines(DataFile);
 
             Node[] graph = GenerateGraph(data);
 
-            Dijkstra dijkstra = new(graph);
-
             Node destination = graph.First(node => node.IsDestination);
+            Node source = graph.First(node => node.IsSource);
+
+            Dijkstra dijkstra = new(graph, source);            
 
             dijkstra.RunDijkstra();
             dijkstra.RunShortestPath(destination);
@@ -29,6 +30,40 @@ namespace ConsoleApp.Puzzles
             int numSteps = dijkstra.NumSteps;
 
             return numSteps;
+        }
+
+        public static int Part2()
+        {
+            string[] data = File.ReadAllLines(PracticeFile);
+
+            Node[] graph = GenerateGraph(data);
+
+            Node destination = graph.First(node => node.IsDestination);
+
+            List<Node> possibleStartingNodes = graph.Where(node => node.ElevationLetter == 'a').ToList();
+
+            int lowestNumSteps = int.MaxValue;
+            Node bestStartingNode;
+            int nodeNum = 0;
+
+            foreach (var node in possibleStartingNodes)
+            {
+                nodeNum++;
+                Dijkstra dijkstra = new(graph, node);
+                dijkstra.RunDijkstra();
+                dijkstra.RunShortestPath(destination);
+
+                // dijkstra.NumSteps will equal zero for a starting node from which it wasn't possible to reach the destination
+                if (dijkstra.NumSteps > 0 && dijkstra.NumSteps < lowestNumSteps)
+                {
+                    lowestNumSteps = dijkstra.NumSteps;
+                    bestStartingNode = node;
+                }
+
+                Console.WriteLine("Tested node " + nodeNum + ". Lowest num steps = " + lowestNumSteps + ".");
+            }
+
+            return lowestNumSteps;
         }
 
         private static Node[] GenerateGraph(string[] data)
