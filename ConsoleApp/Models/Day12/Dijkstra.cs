@@ -16,6 +16,7 @@ namespace ConsoleApp.Models.Day12
                 return ShortestPath.Count;
             }
         }
+        public bool PathFound { get; private set; }
 
         private Node[] _graph;
         private int _numNodes;
@@ -34,7 +35,7 @@ namespace ConsoleApp.Models.Day12
         {
             List<Node> unvisitedQueue = new();
 
-            // Initialise values in distance and previous arrays and populate queue of unvisited nodes
+            // Initialise values
             foreach (var node1 in _graph)
             {
                 _distanceFromSource[node1] = node1 == _source ? 0 : int.MaxValue;
@@ -48,7 +49,7 @@ namespace ConsoleApp.Models.Day12
 
                 if (currentNode == null)
                 {
-                    // all remaining nodes cannot be reached
+                    // all remaining nodes cannot be reached from source
                     break;
                 }
 
@@ -67,13 +68,15 @@ namespace ConsoleApp.Models.Day12
             }            
         }
 
-        public void RunShortestPath(Node destinationNode)
+        public void RunShortestPath(Node destination)
         {
-            while (_previous[destinationNode] != null)
+            PathFound = _previous[destination] != null ? true : false;
+
+            while (_previous[destination] != null)
             {
-                destinationNode = _previous[destinationNode];
+                destination = _previous[destination];
                 
-                ShortestPath.Push(destinationNode);
+                ShortestPath.Push(destination);
             }
         }
 

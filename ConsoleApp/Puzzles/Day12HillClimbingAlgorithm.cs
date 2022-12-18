@@ -1,6 +1,7 @@
 ﻿using ConsoleApp.Models.Day12;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,7 @@ namespace ConsoleApp.Puzzles
 
         public static int Part2()
         {
-            string[] data = File.ReadAllLines(PracticeFile);
+            string[] data = File.ReadAllLines(DataFile);
 
             Node[] graph = GenerateGraph(data);
 
@@ -46,18 +47,17 @@ namespace ConsoleApp.Puzzles
             Node bestStartingNode;
             int nodeNum = 0;
 
-            foreach (var node in possibleStartingNodes)
+            foreach (var source in possibleStartingNodes)
             {
                 nodeNum++;
-                Dijkstra dijkstra = new(graph, node);
+                Dijkstra dijkstra = new(graph, source);
                 dijkstra.RunDijkstra();
                 dijkstra.RunShortestPath(destination);
 
-                // dijkstra.NumSteps will equal zero for a starting node from which it wasn't possible to reach the destination
-                if (dijkstra.NumSteps > 0 && dijkstra.NumSteps < lowestNumSteps)
+                if (dijkstra.PathFound && dijkstra.NumSteps < lowestNumSteps)
                 {
                     lowestNumSteps = dijkstra.NumSteps;
-                    bestStartingNode = node;
+                    bestStartingNode = source;
                 }
 
                 Console.WriteLine("Tested node " + nodeNum + ". Lowest num steps = " + lowestNumSteps + ".");
